@@ -32,3 +32,8 @@ before_script:
   - adb shell input keyevent 82 &
 
 script: ./gradlew :app:build :app:connectedDebugAndroidTest
+
+branches:
+  only:
+    - master
+    - develop
