@@ -1,13 +1,13 @@
-package aut.bme.bookmanager.ui.gallery
+package aut.bme.bookmanager.ui.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class GalleryViewModel : ViewModel() {
+class FavoriteViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+        value = "This is the Favorite Fragment"
     }
     val text: LiveData<String> = _text
 }

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_books"
-        android:name="aut.bme.bookmanager.ui.home.HomeFragment"
+        android:name="aut.bme.bookmanager.ui.books.BooksFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_books" />
 
     <fragment
         android:id="@+id/nav_favorite"
-        android:name="aut.bme.bookmanager.ui.gallery.GalleryFragment"
+        android:name="aut.bme.bookmanager.ui.favorite.FavoriteFragment"
         android:label="@string/menu_fav_books"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_favorite" />
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="aut.bme.bookmanager.ui.slideshow.SlideshowFragment"
+        android:name="aut.bme.bookmanager.ui.about.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_about" />
 </navigation>

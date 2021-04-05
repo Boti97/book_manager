@@ -1,4 +1,4 @@
-package aut.bme.bookmanager.ui.slideshow
+package aut.bme.bookmanager.ui.books
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import aut.bme.bookmanager.R
 
-class SlideshowFragment : Fragment() {
+class BooksFragment : Fragment() {
 
-    private lateinit var slideshowViewModel: SlideshowViewModel
+    private lateinit var booksViewModel: BooksViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        slideshowViewModel =
-                ViewModelProvider(this).get(SlideshowViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
-        val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(viewLifecycleOwner, Observer {
+        booksViewModel =
+                ViewModelProvider(this).get(BooksViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_books, container, false)
+        val textView: TextView = root.findViewById(R.id.text_books)
+        booksViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

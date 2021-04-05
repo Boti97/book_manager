@@ -1,13 +1,13 @@
-package aut.bme.bookmanager.ui.slideshow
+package aut.bme.bookmanager.ui.books
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SlideshowViewModel : ViewModel() {
+class BooksViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
+        value = "This is the Books Fragment"
     }
     val text: LiveData<String> = _text
 }
