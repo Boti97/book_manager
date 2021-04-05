@@ -9,4 +9,12 @@
     <string name="menu_home">Books</string>
     <string name="menu_fav_books">Favorite books</string>
     <string name="menu_about">About</string>
+    <string name="add_fav_str">+</string>
+    <string name="about_image_desc">Application image on about screen.</string>
+    <string name="version_tv_str">Version</string>
+    <string name="version_info_str">v1.0</string>
+    <string name="developer_tv_str">Developer</string>
+    <string name="developer_info_str">MyCompany Kft.</string>
+    <string name="headquarter_tv_str">Headquarter</string>
+    <string name="headquarter_info_str">Budapest, Kossuth Lajos tér 1-3, 1055</string>
 </resources>
