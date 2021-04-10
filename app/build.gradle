@@ -39,7 +39,6 @@ dependencies {
     implementation kotlinDependencies.stdlib
 
     implementation androidxDependencies.core
-    implementation androidxDependencies.appcompat
     implementation androidxDependencies.constraintLayout
     implementation androidxDependencies.navigationFragment
     implementation androidxDependencies.navigationUI
