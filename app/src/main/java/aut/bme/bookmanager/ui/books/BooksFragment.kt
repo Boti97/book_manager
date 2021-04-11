@@ -1,12 +1,15 @@
 package aut.bme.bookmanager.ui.books
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
+import aut.bme.bookmanager.injector
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_books.*
 import javax.inject.Inject
@@ -28,6 +31,11 @@ class BooksFragment : Fragment() {
     @Inject
     lateinit var booksPresenter: BooksPresenter
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        injector.inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,5 +53,16 @@ class BooksFragment : Fragment() {
 
         booksAdapter = BooksAdapter(requireContext(), books)
         books_rv.adapter = booksAdapter
+
+        search_book_sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(author: String?): Boolean {
+                if (author != null) booksPresenter.getBooks(author)
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return false
+            }
+        })
     }
 }

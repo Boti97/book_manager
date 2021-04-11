@@ -4,4 +4,8 @@ import aut.bme.bookmanager.interactor.network.BooksNetworkInteractor
 import javax.inject.Inject
 
 class BooksPresenter @Inject constructor(private val booksNetworkInteractor: BooksNetworkInteractor) {
+
+    fun getBooks(author: String) {
+        booksNetworkInteractor.getBooks(author);
+    }
 }
