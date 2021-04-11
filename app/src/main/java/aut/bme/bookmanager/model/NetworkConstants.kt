@@ -5,6 +5,6 @@ package aut.bme.bookmanager.model
  */
 object NetworkConstants {
     const val BOOKS_ENDPOINT =
-        "https://api.nytimes.com/svc/books/v3/lists/best-sellers/history.json/"
+        "https://api.nytimes.com/svc/books/v3/lists/best-sellers/"
     const val API_KEY = ""
 }

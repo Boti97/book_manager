@@ -10,22 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
+import aut.bme.bookmanager.interactor.network.event.BookResultEvent
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_books.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 class BooksFragment : Fragment() {
 
-    private val books: MutableList<Book> = mutableListOf(
-        Book(
-            "Foundation",
-            "Isaac Asimov"
-        ),
-        Book(
-            "Second Foundation",
-            "Isaac Asimov"
-        )
-    )
+    private val books: MutableList<Book> = mutableListOf()
     private var booksAdapter: BooksAdapter? = null
 
     @Inject
@@ -34,6 +29,12 @@ class BooksFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         injector.inject(this)
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onCreateView(
@@ -55,8 +56,8 @@ class BooksFragment : Fragment() {
         books_rv.adapter = booksAdapter
 
         search_book_sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(author: String?): Boolean {
-                if (author != null) booksPresenter.getBooks(author)
+            override fun onQueryTextSubmit(title: String?): Boolean {
+                if (title != null) booksPresenter.getBooks(title)
                 return false
             }
 
@@ -64,5 +65,22 @@ class BooksFragment : Fragment() {
                 return false
             }
         })
+
+        search_book_sv.setOnCloseListener {
+            books.clear()
+            booksAdapter?.notifyDataSetChanged()
+            false
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onBookResultEvent(event: BookResultEvent) {
+        if (event.throwable != null) {
+            event.throwable?.printStackTrace()
+        } else {
+            books.clear()
+            books.addAll(event.books!!)
+            booksAdapter?.notifyDataSetChanged()
+        }
     }
 }

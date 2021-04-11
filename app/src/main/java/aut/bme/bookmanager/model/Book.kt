@@ -3,15 +3,9 @@ package aut.bme.bookmanager.model
 import com.google.gson.annotations.SerializedName
 
 class Book {
-
     @SerializedName("title")
-    var title: String? = null;
+    var title: String? = null
 
     @SerializedName("author")
-    var author: String? = null;
-
-    constructor(title: String?, author: String?) {
-        this.title = title
-        this.author = author
-    }
+    var author: String? = null
 }

@@ -13,16 +13,7 @@ import javax.inject.Inject
 
 class FavoriteFragment : Fragment() {
 
-    private val favoriteBooks: MutableList<Book> = mutableListOf(
-        Book(
-            "Foundation",
-            "Isaac Asimov"
-        ),
-        Book(
-            "Second Foundation",
-            "Isaac Asimov"
-        )
-    )
+    private val favoriteBooks: MutableList<Book> = mutableListOf()
     private var favoriteAdapter: FavoriteAdapter? = null
 
     @Inject

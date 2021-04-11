@@ -10,9 +10,9 @@ import retrofit2.http.Query
  */
 interface BooksApi {
 
-    @GET
+    @GET("history.json")
     fun getBooks(
-        @Query("author") author: String,
+        @Query("title") title: String,
         @Query("api-key") apiKey: String
     ): Call<BookResult>
 }
