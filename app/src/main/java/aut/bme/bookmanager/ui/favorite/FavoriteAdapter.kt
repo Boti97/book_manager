@@ -21,7 +21,7 @@ class FavoriteAdapter constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.card_book, parent, false)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.card_favorite, parent, false)
         return ViewHolder(itemView)
     }
 
