@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
-import aut.bme.bookmanager.interactor.network.event.BookResultEvent
+import aut.bme.bookmanager.interactor.event.BookResultEvent
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_books.*
 import org.greenrobot.eventbus.EventBus

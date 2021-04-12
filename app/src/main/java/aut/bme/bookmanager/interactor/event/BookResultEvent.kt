@@ -1,4 +1,4 @@
-package aut.bme.bookmanager.interactor.network.event
+package aut.bme.bookmanager.interactor.event
 
 import aut.bme.bookmanager.model.Book
 

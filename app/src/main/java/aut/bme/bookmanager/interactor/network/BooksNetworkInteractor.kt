@@ -1,8 +1,8 @@
 package aut.bme.bookmanager.interactor.network
 
-import aut.bme.bookmanager.interactor.network.event.BookResultEvent
+import aut.bme.bookmanager.interactor.event.BookResultEvent
 import aut.bme.bookmanager.model.BookResult
-import aut.bme.bookmanager.model.NetworkConstants.API_KEY
+import aut.bme.bookmanager.interactor.network.NetworkConstants.API_KEY
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback

@@ -1,4 +1,4 @@
-package aut.bme.bookmanager.model
+package aut.bme.bookmanager.interactor.network
 
 /*
  * Contains globally accessible constants for network communication.

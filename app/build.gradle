@@ -77,4 +77,6 @@ dependencies {
     androidTestImplementation daggerDependencies.annotation
     kaptAndroidTest daggerDependencies.compiler
 
+    implementation roomDependencies.roomRuntime
+    kapt roomDependencies.roomCompiler
 }

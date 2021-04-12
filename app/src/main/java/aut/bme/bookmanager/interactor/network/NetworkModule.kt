@@ -1,6 +1,6 @@
 package aut.bme.bookmanager.interactor.network
 
-import aut.bme.bookmanager.model.NetworkConstants.BOOKS_ENDPOINT
+import aut.bme.bookmanager.interactor.network.NetworkConstants.BOOKS_ENDPOINT
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
