@@ -18,4 +18,6 @@ class Book {
     @ColumnInfo(name = "author")
     @SerializedName("author")
     var author: String? = null
+
+    var isSelected: Boolean = false
 }
