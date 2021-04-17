@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 /*
  * A wrapper class of the book result from the api
  */
+
 class BookResult {
     @SerializedName("results")
-    var bookList: List<Book>? = null
+    var bookList: List<Book> = ArrayList()
 }

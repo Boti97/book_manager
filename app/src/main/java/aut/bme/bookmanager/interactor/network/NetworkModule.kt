@@ -22,15 +22,4 @@ class NetworkModule {
         interceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder().addInterceptor(interceptor).build()
     }
-
-    @Provides
-    @Singleton
-    fun provideArtistsApi(client: OkHttpClient): BooksApi {
-        val retrofit = Retrofit.Builder()
-            .client(client)
-            .baseUrl(BOOKS_ENDPOINT)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return retrofit.create(BooksApi::class.java)
-    }
 }

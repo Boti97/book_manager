@@ -1,8 +1,9 @@
 package aut.bme.bookmanager.interactor.network
 
+import aut.bme.bookmanager.interactor.ApiClient
 import aut.bme.bookmanager.interactor.event.BookResultEvent
-import aut.bme.bookmanager.model.BookResult
 import aut.bme.bookmanager.interactor.network.NetworkConstants.API_KEY
+import aut.bme.bookmanager.model.BookResult
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,13 +13,15 @@ import javax.inject.Inject
 /*
  * Uses BooksApi methods to conduct the remote api calls.
  */
-class BooksNetworkInteractor @Inject constructor(private var booksApi: BooksApi) {
+class BooksNetworkInteractor @Inject constructor() {
 
     fun getBooks(title: String) {
         val bookResultEvent = BookResultEvent()
 
         try {
-            val booksAPICallResponse = booksApi.getBooks(title, API_KEY)
+            val apiClient = ApiClient("api-key", API_KEY)
+            val api = apiClient.createService(BooksApi::class.java);
+            val booksAPICallResponse = api.getBooks(title)
 
             booksAPICallResponse.enqueue(object : Callback<BookResult> {
                 override fun onResponse(call: Call<BookResult>, response: Response<BookResult>) {
