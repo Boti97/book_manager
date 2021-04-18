@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
 import aut.bme.bookmanager.interactor.event.BookResultEvent
+import aut.bme.bookmanager.interactor.repository.BookDatabase
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_books.*
 import org.greenrobot.eventbus.EventBus
@@ -70,6 +71,14 @@ class BooksFragment : Fragment() {
             books.clear()
             booksAdapter?.notifyDataSetChanged()
             false
+        }
+
+        ad_fav_btn.setOnClickListener {
+            val addFavoritesThread = Thread {
+                BookDatabase.getInstance(requireContext()).bookDAO()
+                    .insertBooks(books.filter { book -> book.isSelected })
+            }
+            addFavoritesThread.start()
         }
     }
 

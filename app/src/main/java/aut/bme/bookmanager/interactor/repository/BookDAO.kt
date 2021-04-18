@@ -13,7 +13,7 @@ interface BookDAO {
     fun getBooks(): List<Book>
 
     @Insert
-    fun insertBooks(vararg book: Book)
+    fun insertBooks(books: List<Book>)
 
     @Delete
     fun deleteBook(book: Book)
