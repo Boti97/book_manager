@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
 import aut.bme.bookmanager.interactor.event.BookResultEvent
-import aut.bme.bookmanager.interactor.repository.BookDatabase
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import org.greenrobot.eventbus.EventBus
@@ -62,17 +61,11 @@ class FavoriteFragment : Fragment() {
 
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val deleteFavoriteThread = Thread {
-                    val pos = viewHolder.adapterPosition
-                    BookDatabase.getInstance(requireContext()).bookDAO()
-                        .deleteBook(favoriteBooks[pos])
-                    favoriteBooks.removeAt(pos)
-                    requireActivity().runOnUiThread {
-                        favoriteAdapter!!.notifyItemRemoved(pos)
+                val pos = viewHolder.adapterPosition
+                favoritePresenter.deleteBook(requireContext(), favoriteBooks[pos])
 
-                    }
-                }
-                deleteFavoriteThread.start()
+                favoriteBooks.removeAt(pos)
+                favoriteAdapter!!.notifyItemRemoved(pos)
             }
         }
 
