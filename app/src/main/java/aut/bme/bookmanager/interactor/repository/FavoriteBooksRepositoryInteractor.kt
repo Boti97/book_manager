@@ -34,4 +34,11 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() {
         }
         addFavoritesThread.start()
     }
+
+    fun updateBook(context: Context, book: Book) {
+        val updateBookTitleThread = Thread {
+            BookDatabase.getInstance(context).bookDAO().updateBook(book)
+        }
+        updateBookTitleThread.start()
+    }
 }

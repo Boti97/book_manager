@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
 import aut.bme.bookmanager.interactor.event.BookResultEvent
+import aut.bme.bookmanager.interactor.event.TitleChangeEvent
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import org.greenrobot.eventbus.EventBus
@@ -86,5 +87,12 @@ class FavoriteFragment : Fragment() {
             favoriteBooks.addAll(event.books!!)
             favoriteAdapter?.notifyDataSetChanged()
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onBookResultEvent(event: TitleChangeEvent) {
+        favoriteBooks[event.position].title = event.title
+        favoritePresenter.updateBook(requireContext(), favoriteBooks[event.position])
+        favoriteAdapter?.notifyDataSetChanged()
     }
 }

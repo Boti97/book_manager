@@ -11,14 +11,19 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import aut.bme.bookmanager.R
+import aut.bme.bookmanager.interactor.event.TitleChangeEvent
+import com.google.android.material.textfield.TextInputEditText
+import org.greenrobot.eventbus.EventBus
 
 class PopUpClass {
     @RequiresApi(Build.VERSION_CODES.M)
-    fun showPopupWindow(view: View) {
+    fun showPopupWindow(view: View, position: Int, currentTitle: String) {
         val inflater = view
             .context
             .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
         val popupView = inflater.inflate(R.layout.card_popup, null)
+        popupView.findViewById<TextInputEditText>(R.id.title_iet).setText(currentTitle)
 
         val width = LinearLayout.LayoutParams.MATCH_PARENT
         val height = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -33,8 +38,16 @@ class PopUpClass {
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
 
         val buttonEdit = popupView.findViewById<Button>(R.id.ok_btn)
-        buttonEdit.setOnClickListener { //As an example, display the message
-            Toast.makeText(view.context, "Wow, popup action button", Toast.LENGTH_SHORT)
+        buttonEdit.setOnClickListener {
+            val titleChangeEvent =
+                TitleChangeEvent(
+                    popupView.findViewById<TextInputEditText>(R.id.title_iet).text.toString(),
+                    position
+                )
+            EventBus.getDefault().post(titleChangeEvent)
+
+            popupWindow.dismiss()
+            Toast.makeText(view.context, "Title changed", Toast.LENGTH_SHORT)
                 .show()
         }
     }

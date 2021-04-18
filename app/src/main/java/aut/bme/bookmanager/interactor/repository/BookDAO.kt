@@ -1,9 +1,6 @@
 package aut.bme.bookmanager.interactor.repository
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import aut.bme.bookmanager.model.Book
 
 @Dao
@@ -20,5 +17,8 @@ interface BookDAO {
 
     @Query("DELETE FROM book")
     fun deleteAll()
+
+    @Update
+    fun updateBook(book: Book)
 
 }

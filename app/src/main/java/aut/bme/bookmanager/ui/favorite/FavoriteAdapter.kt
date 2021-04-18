@@ -40,7 +40,7 @@ class FavoriteAdapter constructor(
         holder.itemView.setOnClickListener {
             view.foreground.alpha = 180
             val popUpClass = PopUpClass()
-            popUpClass.showPopupWindow(view)
+            popUpClass.showPopupWindow(view, position, books[position].title.toString())
         }
     }
 }
