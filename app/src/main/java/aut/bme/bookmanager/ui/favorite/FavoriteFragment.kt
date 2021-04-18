@@ -1,10 +1,12 @@
 package aut.bme.bookmanager.ui.favorite
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
+
 
 class FavoriteFragment : Fragment() {
 
@@ -46,6 +49,7 @@ class FavoriteFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,15 +59,15 @@ class FavoriteFragment : Fragment() {
         llm.orientation = LinearLayoutManager.VERTICAL
         favorite_books_rv.layoutManager = llm
 
-        favoriteAdapter = FavoriteAdapter(requireContext(), favoriteBooks)
+        favoriteAdapter = FavoriteAdapter(requireContext(), view, favoriteBooks)
         favorite_books_rv.adapter = favoriteAdapter
 
+        view.foreground.alpha = 0
 
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val pos = viewHolder.adapterPosition
                 favoritePresenter.deleteBook(requireContext(), favoriteBooks[pos])
-
                 favoriteBooks.removeAt(pos)
                 favoriteAdapter!!.notifyItemRemoved(pos)
             }

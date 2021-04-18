@@ -21,4 +21,7 @@
     <string name="book_title">Book Title</string>
     <string name="book_author">Book Author</string>
     <string name="sv_placeholder">search by title</string>
+    <string name="hint">title</string>
+    <string name="ok">OK</string>
+    <string name="favorite_foreground">favorite_foreground</string>
 </resources>
