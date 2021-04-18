@@ -5,13 +5,13 @@ import aut.bme.bookmanager.interactor.repository.FavoriteBooksRepositoryInteract
 import aut.bme.bookmanager.model.Book
 import javax.inject.Inject
 
-class FavoritePresenter @Inject constructor(private val booksRepositoryInteractor: FavoriteBooksRepositoryInteractor) {
+class FavoritePresenter @Inject constructor(private val favoriteBooksRepositoryInteractor: FavoriteBooksRepositoryInteractor) {
 
     fun getBooks(context: Context) {
-        booksRepositoryInteractor.getBooks(context)
+        favoriteBooksRepositoryInteractor.getBooks(context)
     }
 
     fun deleteBook(context: Context, book: Book) {
-        booksRepositoryInteractor.deleteBook(context, book)
+        favoriteBooksRepositoryInteractor.deleteBook(context, book)
     }
 }

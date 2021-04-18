@@ -27,4 +27,11 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() {
         }
         deleteFavoriteThread.start()
     }
+
+    fun insertBooks(context: Context, books: List<Book>) {
+        val addFavoritesThread = Thread {
+            BookDatabase.getInstance(context).bookDAO().insertBooks(books)
+        }
+        addFavoritesThread.start()
+    }
 }

@@ -74,11 +74,7 @@ class BooksFragment : Fragment() {
         }
 
         ad_fav_btn.setOnClickListener {
-            val addFavoritesThread = Thread {
-                BookDatabase.getInstance(requireContext()).bookDAO()
-                    .insertBooks(books.filter { book -> book.isSelected })
-            }
-            addFavoritesThread.start()
+            booksPresenter.addFavorites(requireContext(), books.filter { book -> book.isSelected })
         }
     }
 

@@ -13,11 +13,14 @@ class UIModule() {
 
     @Provides
     @Singleton
-    fun provideBooksPresenter(booksNetworkInteractor: BooksNetworkInteractor) =
-        BooksPresenter(booksNetworkInteractor)
+    fun provideBooksPresenter(
+        booksNetworkInteractor: BooksNetworkInteractor,
+        favoriteBooksRepositoryInteractor: FavoriteBooksRepositoryInteractor
+    ) =
+        BooksPresenter(booksNetworkInteractor, favoriteBooksRepositoryInteractor)
 
     @Provides
     @Singleton
-    fun provideFavoritePresenter(booksRepositoryInteractor: FavoriteBooksRepositoryInteractor) =
-        FavoritePresenter(booksRepositoryInteractor)
+    fun provideFavoritePresenter(favoriteBooksRepositoryInteractor: FavoriteBooksRepositoryInteractor) =
+        FavoritePresenter(favoriteBooksRepositoryInteractor)
 }
