@@ -15,6 +15,10 @@ class FavoritePresenter @Inject constructor(private val favoriteBooksRepositoryI
         favoriteBooksRepositoryInteractor.deleteBook(context, book)
     }
 
+    fun deleteAll(context: Context) {
+        favoriteBooksRepositoryInteractor.deleteAll(context)
+    }
+
     fun updateBook(context: Context, book: Book) {
         favoriteBooksRepositoryInteractor.updateBook(context, book)
     }

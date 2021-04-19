@@ -1,6 +1,7 @@
 package aut.bme.bookmanager.interactor.repository
 
 import android.content.Context
+import android.widget.Toast
 import aut.bme.bookmanager.interactor.event.BookResultEvent
 import aut.bme.bookmanager.model.Book
 import org.greenrobot.eventbus.EventBus
@@ -40,5 +41,12 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() {
             BookDatabase.getInstance(context).bookDAO().updateBook(book)
         }
         updateBookTitleThread.start()
+    }
+
+    fun deleteAll(context: Context) {
+        val clearDBThread = Thread {
+            BookDatabase.getInstance(context).bookDAO().deleteAll()
+        }
+        clearDBThread.start()
     }
 }

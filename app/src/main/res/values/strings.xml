@@ -24,4 +24,5 @@
     <string name="hint">title</string>
     <string name="ok">OK</string>
     <string name="favorite_foreground">favorite_foreground</string>
+    <string name="floating_btn_str">Clear favorites</string>
 </resources>
