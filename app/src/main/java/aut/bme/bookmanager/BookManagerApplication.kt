@@ -8,6 +8,6 @@ class BookManagerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        injector = DaggerBookManagerApplicationComponent.builder().uIModule(UIModule()).build()
+        injector = DaggerBookManagerApplicationComponent.builder().uIModule(UIModule(this)).build()
     }
 }

@@ -10,13 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
-import aut.bme.bookmanager.interactor.event.BookResultEvent
-import aut.bme.bookmanager.interactor.repository.BookDatabase
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_books.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 class BooksFragment : Fragment() {
@@ -30,12 +25,12 @@ class BooksFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         injector.inject(this)
-        EventBus.getDefault().register(this)
+        booksPresenter.attachScreen(this)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        EventBus.getDefault().unregister(this)
+    override fun onDestroyView() {
+        booksPresenter.detachScreen()
+        super.onDestroyView()
     }
 
     override fun onCreateView(
@@ -78,14 +73,10 @@ class BooksFragment : Fragment() {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onBookResultEvent(event: BookResultEvent) {
-        if (event.throwable != null) {
-            event.throwable?.printStackTrace()
-        } else {
-            books.clear()
-            books.addAll(event.books!!)
-            booksAdapter?.notifyDataSetChanged()
-        }
+    fun refreshBooks(newBooks: List<Book>?) {
+        books.clear()
+        if (newBooks != null)
+            books.addAll(newBooks)
+        booksAdapter?.notifyDataSetChanged()
     }
 }

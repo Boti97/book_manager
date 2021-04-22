@@ -38,9 +38,9 @@ class FavoriteFragment : Fragment() {
         EventBus.getDefault().register(this)
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onDestroyView() {
         EventBus.getDefault().unregister(this)
+        super.onDestroyView()
     }
 
     override fun onCreateView(

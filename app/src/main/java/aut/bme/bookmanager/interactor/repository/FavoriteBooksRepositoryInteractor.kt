@@ -1,14 +1,14 @@
 package aut.bme.bookmanager.interactor.repository
 
 import android.content.Context
-import android.widget.Toast
 import aut.bme.bookmanager.interactor.event.BookResultEvent
 import aut.bme.bookmanager.model.Book
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
-class FavoriteBooksRepositoryInteractor @Inject constructor() {
-    fun getBooks(context: Context) {
+class FavoriteBooksRepositoryInteractor @Inject constructor() : RepositoryInteractor {
+
+    override fun getBooks(context: Context) {
         val bookResultEvent = BookResultEvent()
         try {
             val selectThread = Thread {
@@ -22,28 +22,30 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() {
         }
     }
 
-    fun deleteBook(context: Context, book: Book) {
+    override fun deleteBook(context: Context, book: Book) {
         val deleteFavoriteThread = Thread {
             BookDatabase.getInstance(context).bookDAO().deleteBook(book)
         }
         deleteFavoriteThread.start()
     }
 
-    fun insertBooks(context: Context, books: List<Book>) {
+    override fun insertBooks(context: Context, books: List<Book>) {
         val addFavoritesThread = Thread {
-            BookDatabase.getInstance(context).bookDAO().insertBooks(books)
+            BookDatabase.getInstance(context).runInTransaction(Runnable {
+                BookDatabase.getInstance(context).bookDAO().insertBooks(books)
+            })
         }
         addFavoritesThread.start()
     }
 
-    fun updateBook(context: Context, book: Book) {
+    override fun updateBook(context: Context, book: Book) {
         val updateBookTitleThread = Thread {
             BookDatabase.getInstance(context).bookDAO().updateBook(book)
         }
         updateBookTitleThread.start()
     }
 
-    fun deleteAll(context: Context) {
+    override fun deleteAll(context: Context) {
         val clearDBThread = Thread {
             BookDatabase.getInstance(context).bookDAO().deleteAll()
         }

@@ -8,5 +8,5 @@ import com.google.gson.annotations.SerializedName
 
 class BookResult {
     @SerializedName("results")
-    var bookList: List<Book> = ArrayList()
+    var books: List<Book> = ArrayList()
 }
