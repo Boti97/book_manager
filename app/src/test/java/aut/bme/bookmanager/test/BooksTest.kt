@@ -1,4 +1,4 @@
-package aut.bme.bookmanager.test.component
+package aut.bme.bookmanager.test
 
 import android.content.Context
 import aut.bme.bookmanager.interactor.repository.BookDatabase
@@ -19,7 +19,7 @@ import org.robolectric.RobolectricTestRunner
 import javax.inject.Inject
 
 @RunWith(RobolectricTestRunner::class)
-class BooksComponentTest {
+class BooksTest {
 
     @Inject
     lateinit var context: Context
@@ -31,7 +31,7 @@ class BooksComponentTest {
     lateinit var booksPresenter: BooksPresenter
 
     private lateinit var booksFragment: BooksFragment
-    private lateinit var databaseManager: DatabaseManager
+    private var databaseManager = DatabaseManager()
 
     @Before
     @Throws(Exception::class)
@@ -40,8 +40,7 @@ class BooksComponentTest {
         testInjector.inject(this)
         booksFragment = mock()
         booksPresenter.attachScreen(booksFragment)
-
-        databaseManager = DatabaseManager()
+        databaseManager.clearDB(context)
     }
 
     @Test

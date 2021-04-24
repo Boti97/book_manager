@@ -30,8 +30,11 @@ class TestModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideFavoritePresenter(favoriteBooksRepositoryInteractor: FavoriteBooksRepositoryInteractor) =
-        FavoritePresenter(favoriteBooksRepositoryInteractor)
+    fun provideFavoritePresenter(
+        executor: Executor,
+        favoriteBooksRepositoryInteractor: FavoriteBooksRepositoryInteractor
+    ) =
+        FavoritePresenter(executor, favoriteBooksRepositoryInteractor)
 
     @Provides
     @Singleton

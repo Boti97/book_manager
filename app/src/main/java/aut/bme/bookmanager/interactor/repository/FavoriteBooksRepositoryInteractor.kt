@@ -10,16 +10,12 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() : RepositoryIntera
 
     override fun getBooks(context: Context) {
         val bookResultEvent = BookResultEvent()
-        try {
-            val selectThread = Thread {
-                bookResultEvent.books = BookDatabase.getInstance(context).bookDAO().getBooks()
-                EventBus.getDefault().post(bookResultEvent)
-            }
-            selectThread.start()
-        } catch (e: Exception) {
-            bookResultEvent.throwable = e
-            EventBus.getDefault().post(bookResultEvent)
+        val selectThread = Thread {
+            bookResultEvent.books = BookDatabase.getInstance(context).bookDAO().getBooks()
         }
+        selectThread.start()
+        selectThread.join()
+        EventBus.getDefault().post(bookResultEvent)
     }
 
     override fun deleteBook(context: Context, book: Book) {
@@ -27,6 +23,7 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() : RepositoryIntera
             BookDatabase.getInstance(context).bookDAO().deleteBook(book)
         }
         deleteFavoriteThread.start()
+        deleteFavoriteThread.join()
     }
 
     override fun insertBooks(context: Context, books: List<Book>) {
@@ -36,6 +33,7 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() : RepositoryIntera
             })
         }
         addFavoritesThread.start()
+        addFavoritesThread.join()
     }
 
     override fun updateBook(context: Context, book: Book) {
@@ -43,6 +41,7 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() : RepositoryIntera
             BookDatabase.getInstance(context).bookDAO().updateBook(book)
         }
         updateBookTitleThread.start()
+        updateBookTitleThread.join()
     }
 
     override fun deleteAll(context: Context) {
@@ -50,5 +49,6 @@ class FavoriteBooksRepositoryInteractor @Inject constructor() : RepositoryIntera
             BookDatabase.getInstance(context).bookDAO().deleteAll()
         }
         clearDBThread.start()
+        clearDBThread.join()
     }
 }

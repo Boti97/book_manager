@@ -25,7 +25,8 @@ class BooksFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         injector.inject(this)
-        booksPresenter.attachScreen(this)
+        if (!booksPresenter.isAttached)
+            booksPresenter.attachScreen(this)
     }
 
     override fun onDestroyView() {

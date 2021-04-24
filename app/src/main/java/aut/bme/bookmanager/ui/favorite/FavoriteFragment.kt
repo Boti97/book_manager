@@ -14,13 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
-import aut.bme.bookmanager.interactor.event.BookResultEvent
-import aut.bme.bookmanager.interactor.event.TitleChangeEvent
 import aut.bme.bookmanager.model.Book
 import kotlinx.android.synthetic.main.fragment_favorite.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 
@@ -35,11 +30,12 @@ class FavoriteFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         injector.inject(this)
-        EventBus.getDefault().register(this)
+        if (!favoritePresenter.isAttached)
+            favoritePresenter.attachScreen(this)
     }
 
     override fun onDestroyView() {
-        EventBus.getDefault().unregister(this)
+        favoritePresenter.detachScreen()
         super.onDestroyView()
     }
 
@@ -86,21 +82,15 @@ class FavoriteFragment : Fragment() {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onBookResultEvent(event: BookResultEvent) {
-        if (event.throwable != null) {
-            event.throwable?.printStackTrace()
-        } else {
-            favoriteBooks.clear()
-            favoriteBooks.addAll(event.books!!)
-            favoriteAdapter?.notifyDataSetChanged()
-        }
+    fun refreshFavorites(favorites: List<Book>) {
+        favoriteBooks.clear()
+        favoriteBooks.addAll(favorites)
+        favoriteAdapter?.notifyDataSetChanged()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onBookResultEvent(event: TitleChangeEvent) {
-        favoriteBooks[event.position].title = event.title
-        favoritePresenter.updateBook(requireContext(), favoriteBooks[event.position])
+    fun updateBookTitle(position: Int, title: String) {
+        favoriteBooks[position].title = title
+        favoritePresenter.updateBook(requireContext(), favoriteBooks[position])
         favoriteAdapter?.notifyDataSetChanged()
     }
 }

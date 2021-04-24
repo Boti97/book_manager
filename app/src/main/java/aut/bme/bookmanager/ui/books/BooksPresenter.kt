@@ -32,8 +32,8 @@ class BooksPresenter @Inject constructor(
 
     override fun attachScreen(screen: BooksFragment) {
         super.attachScreen(screen)
-        EventBus.getDefault().register(this)
         isAttached = true
+        EventBus.getDefault().register(this)
     }
 
     override fun detachScreen() {
