@@ -37,3 +37,4 @@ branches:
   only:
     - master
     - develop
+    - test
