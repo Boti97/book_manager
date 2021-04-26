@@ -1,12 +1,8 @@
 package aut.bme.bookmanager.interactor.network
 
+import aut.bme.bookmanager.BuildConfig.API_KEY
 import aut.bme.bookmanager.interactor.event.BookResultEvent
-import aut.bme.bookmanager.interactor.network.NetworkConstants.API_KEY
-import aut.bme.bookmanager.model.BookResult
 import org.greenrobot.eventbus.EventBus
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 /*

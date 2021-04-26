@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
@@ -71,6 +72,9 @@ class BooksFragment : Fragment() {
 
         ad_fav_btn.setOnClickListener {
             booksPresenter.addFavorites(requireContext(), books.filter { book -> book.isSelected })
+            books.forEach { book -> book.isSelected = false }
+            booksAdapter?.notifyDataSetChanged()
+            Toast.makeText(requireContext(), "Favorites added", Toast.LENGTH_SHORT).show()
         }
     }
 

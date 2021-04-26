@@ -5,5 +5,4 @@ package aut.bme.bookmanager.interactor.network
  */
 object NetworkConstants {
     const val BASE_URL = "https://api.nytimes.com/svc/books/v3/"
-    const val API_KEY = ""
 }

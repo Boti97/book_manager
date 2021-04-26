@@ -10,6 +10,7 @@ import aut.bme.bookmanager.utils.argumentCaptor
 import aut.bme.bookmanager.utils.mock
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.verify
@@ -42,6 +43,7 @@ class FavoritesTest {
         databaseManager.clearDB(context)
     }
 
+    @Ignore
     @Test
     fun testGetBooks() {
         val title = "Foundation"
