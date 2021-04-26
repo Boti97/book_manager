@@ -1,6 +1,6 @@
 package aut.bme.bookmanager.interactor.network
 
-import aut.bme.bookmanager.BuildConfig.API_KEY
+import aut.bme.bookmanager.BuildConfig
 import aut.bme.bookmanager.interactor.event.BookResultEvent
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class BooksNetworkInteractor @Inject constructor(private var booksApi: BooksApi)
     fun getBooks(title: String) {
         val bookResultEvent = BookResultEvent()
         try {
-            val booksAPICallResponse = booksApi.getBooks(title, API_KEY)
+            val booksAPICallResponse = booksApi.getBooks(title, BuildConfig.API_KEY)
 
             val response = booksAPICallResponse.execute()
 
