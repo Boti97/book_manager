@@ -40,7 +40,8 @@ class BooksTest {
         testInjector.inject(this)
         booksFragment = mock()
         booksPresenter.attachScreen(booksFragment)
-        databaseManager.clearDB(context)
+        databaseManager.getDB(context)
+        databaseManager.clearDB()
     }
 
     @Test
@@ -62,7 +63,7 @@ class BooksTest {
         book.title = "Foundation's Edge"
 
         booksPresenter.addFavorites(context, arrayListOf(book))
-        val booksInDB = databaseManager.getBooksInDB(context)
+        val booksInDB = databaseManager.getBooksInDB()
         assert(booksInDB.size == 1)
         assert(booksInDB[0].title == book.title)
         assert(booksInDB[0].author == book.author)

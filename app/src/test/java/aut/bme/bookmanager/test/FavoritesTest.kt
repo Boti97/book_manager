@@ -40,7 +40,7 @@ class FavoritesTest {
         testInjector.inject(this)
         favoriteFragment = mock()
         favoritePresenter.attachScreen(favoriteFragment)
-        databaseManager.clearDB(context)
+        databaseManager.getDB(context)
     }
 
     @Ignore
@@ -49,7 +49,7 @@ class FavoritesTest {
         val title = "Foundation"
         val book = Book()
         book.title = title
-        databaseManager.insertTestBook(context, book)
+        databaseManager.insertTestBook(book)
 
         favoritePresenter.getBooks(context)
 
@@ -60,6 +60,7 @@ class FavoritesTest {
         assert(bookList.value[0].title.equals(title))
     }
 
+
     @Test
     fun testDeleteBook() {
         val title = "Foundation"
@@ -68,11 +69,11 @@ class FavoritesTest {
         book.title = title
         book.author = "Isaac Asimov"
 
-        databaseManager.insertTestBook(context, book)
+        databaseManager.insertTestBook(book)
 
         favoritePresenter.deleteBook(context, book)
 
-        val booksInDB = databaseManager.getBooksInDB(context)
+        val booksInDB = databaseManager.getBooksInDB()
         assert(booksInDB.isEmpty())
 
     }
@@ -84,11 +85,11 @@ class FavoritesTest {
         book.title = title
         book.author = "Isaac Asimov"
 
-        databaseManager.insertTestBook(context, book)
+        databaseManager.insertTestBook(book)
 
         favoritePresenter.deleteAll(context)
 
-        val booksInDB = databaseManager.getBooksInDB(context)
+        val booksInDB = databaseManager.getBooksInDB()
         assert(booksInDB.isEmpty())
     }
 
@@ -100,14 +101,14 @@ class FavoritesTest {
         book.title = title
         book.author = "Isaac Asimov"
 
-        databaseManager.insertTestBook(context, book)
+        databaseManager.insertTestBook(book)
 
         val newTitle = "Foundation"
         book.title = newTitle
 
         favoritePresenter.updateBook(context, book)
 
-        val booksInDB = databaseManager.getBooksInDB(context)
+        val booksInDB = databaseManager.getBooksInDB()
         assert(booksInDB.size == 1)
         assert(booksInDB[0].title.equals(newTitle))
     }
@@ -115,6 +116,7 @@ class FavoritesTest {
     @After
     fun tearDown() {
         favoritePresenter.detachScreen()
+        databaseManager.closeDB()
     }
 
 }

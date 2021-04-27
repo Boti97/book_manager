@@ -6,11 +6,17 @@ import aut.bme.bookmanager.model.Book
 
 class DatabaseManager {
 
-    fun getBooksInDB(context: Context): List<Book> {
+    private var database: BookDatabase? = null
+
+    fun getDB(context: Context) {
+        database = BookDatabase.getInstance(context)
+    }
+
+    fun getBooksInDB(): List<Book> {
         val booksInDB: ArrayList<Book> = ArrayList()
         try {
             val getBooksThread = Thread {
-                booksInDB.addAll(BookDatabase.getInstance(context).bookDAO().getBooks())
+                booksInDB.addAll(database?.bookDAO()!!.getBooks())
             }
             getBooksThread.start()
             getBooksThread.join()
@@ -20,10 +26,10 @@ class DatabaseManager {
         return booksInDB
     }
 
-    fun insertTestBook(context: Context, book: Book) {
+    fun insertTestBook(book: Book) {
         try {
             val insertBookThread = Thread {
-                BookDatabase.getInstance(context).bookDAO().insertBooks(listOf(book))
+                database?.bookDAO()!!.insertBooks(listOf(book))
             }
             insertBookThread.start()
             insertBookThread.join()
@@ -32,13 +38,25 @@ class DatabaseManager {
         }
     }
 
-    fun clearDB(context: Context) {
+    fun clearDB() {
         try {
             val clearDBThread = Thread {
-                BookDatabase.getInstance(context).bookDAO().deleteAll()
+                database?.bookDAO()!!.deleteAll()
             }
             clearDBThread.start()
             clearDBThread.join()
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+    }
+
+    fun closeDB() {
+        try {
+            val closeDBThread = Thread {
+                database?.close()
+            }
+            closeDBThread.start()
+            closeDBThread.join()
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
