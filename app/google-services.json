@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "223608175966",
+    "project_id": "bookmanager-313517",
+    "storage_bucket": "bookmanager-313517.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223608175966:android:5a30a25867b2ebe50563cf",
+        "android_client_info": {
+          "package_name": "aut.bme.bookmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223608175966-v8f2obic12nc5v071gkpt9rhkrmpqhto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4MwNqKUrf9z0uKJu2mMSc8U5XG__xcsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223608175966-v8f2obic12nc5v071gkpt9rhkrmpqhto.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

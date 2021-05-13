@@ -10,6 +10,8 @@ buildscript {
         classpath pluginDependencies.android
         classpath pluginDependencies.kotlin
         classpath pluginDependencies.kotlin_android_extensions
+        classpath pluginDependencies.google_services
+        classpath pluginDependencies.firebase_crashlytics
     }
 }
 

@@ -6,7 +6,9 @@ buildscript {
         pluginDependencies = [
                 android                  : "com.android.tools.build:gradle:$android_plugin_version",
                 kotlin                   : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
-                kotlin_android_extensions: "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+                kotlin_android_extensions: "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version",
+                google_services          : "com.google.gms:google-services:4.3.5",
+                firebase_crashlytics     : "com.google.firebase:firebase-crashlytics-gradle:2.5.2"
         ]
     }
 }

@@ -3,6 +3,7 @@
     package="aut.bme.bookmanager">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name="aut.bme.bookmanager.BookManagerApplication"
