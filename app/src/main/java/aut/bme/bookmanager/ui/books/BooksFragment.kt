@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
 import aut.bme.bookmanager.model.Book
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_books.*
 import javax.inject.Inject
 
@@ -22,6 +26,8 @@ class BooksFragment : Fragment() {
 
     @Inject
     lateinit var booksPresenter: BooksPresenter
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,6 +52,8 @@ class BooksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        firebaseAnalytics = Firebase.analytics
+
         val llm = LinearLayoutManager(context)
         llm.orientation = LinearLayoutManager.VERTICAL
         books_rv.layoutManager = llm
@@ -55,7 +63,12 @@ class BooksFragment : Fragment() {
 
         search_book_sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(title: String?): Boolean {
-                if (title != null) booksPresenter.getBooks(title)
+                if (title != null) {
+                    booksPresenter.getBooks(title)
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH) {
+                        param(FirebaseAnalytics.Param.SEARCH_TERM, title)
+                    }
+                }
                 return false
             }
 
@@ -75,6 +88,10 @@ class BooksFragment : Fragment() {
             books.forEach { book -> book.isSelected = false }
             booksAdapter?.notifyDataSetChanged()
             Toast.makeText(requireContext(), "Favorites added", Toast.LENGTH_SHORT).show()
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.CONTENT_TYPE, "button")
+                param(FirebaseAnalytics.Param.ITEM_ID, "ad_fav_btn")
+            }
         }
     }
 
@@ -83,5 +100,13 @@ class BooksFragment : Fragment() {
         if (newBooks != null)
             books.addAll(newBooks)
         booksAdapter?.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "fragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Books")
+        }
     }
 }

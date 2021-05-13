@@ -15,6 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import aut.bme.bookmanager.R
 import aut.bme.bookmanager.injector
 import aut.bme.bookmanager.model.Book
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_favorite.*
 import javax.inject.Inject
 
@@ -26,6 +30,8 @@ class FavoriteFragment : Fragment() {
 
     @Inject
     lateinit var favoritePresenter: FavoritePresenter
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -50,6 +56,8 @@ class FavoriteFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        firebaseAnalytics = Firebase.analytics
 
         favoritePresenter.getBooks(requireContext())
 
@@ -79,6 +87,12 @@ class FavoriteFragment : Fragment() {
             favoriteBooks.clear()
             favoriteAdapter?.notifyDataSetChanged()
             Toast.makeText(requireContext(), "Favorites cleared", Toast.LENGTH_SHORT).show()
+
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                param(FirebaseAnalytics.Param.ITEM_ID, "clear_favorites_btn")
+                param(FirebaseAnalytics.Param.ITEM_NAME, "AddFavorites")
+                param(FirebaseAnalytics.Param.CONTENT_TYPE, "button")
+            }
         }
     }
 
@@ -92,5 +106,13 @@ class FavoriteFragment : Fragment() {
         favoriteBooks[position].title = title
         favoritePresenter.updateBook(requireContext(), favoriteBooks[position])
         favoriteAdapter?.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "fragment")
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "Favorites")
+        }
     }
 }
